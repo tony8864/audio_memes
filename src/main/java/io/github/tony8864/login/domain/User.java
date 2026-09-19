@@ -9,14 +9,23 @@ public class User {
 
     public User(
             UserId userId,
-            ExternalIdentity externalIdentity
+            ExternalIdentity externalIdentity,
+            Instant createdAt
     ) {
-        this.createdAt = Instant.now();
+        this.createdAt = createdAt;
         this.userId = userId;
         this.externalIdentity = externalIdentity;
     }
 
+    public UserId userId() {
+        return userId;
+    }
+
     public ExternalIdentity externalIdentity() {
         return externalIdentity;
+    }
+
+    public Instant createdAt() {
+        return createdAt;
     }
 }

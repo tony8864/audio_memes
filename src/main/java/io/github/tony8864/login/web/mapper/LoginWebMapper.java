@@ -5,7 +5,7 @@ import io.github.tony8864.login.application.model.LoginResult;
 import io.github.tony8864.login.web.model.LoginRequest;
 import io.github.tony8864.login.web.model.LoginResponse;
 
-public class LoginWebMapper {
+public final class LoginWebMapper {
 
     private LoginWebMapper() {}
 

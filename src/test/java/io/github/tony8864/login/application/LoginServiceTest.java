@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Instant;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,7 +38,7 @@ class LoginServiceTest {
     @Test
     void login_userExists_returnsAccessToken() {
         ExternalIdentity externalIdentity = new ExternalIdentity(AuthProvider.GOOGLE, new ProviderUserId("provider-123"));
-        User user = new User(UserId.newId(), externalIdentity);
+        User user = new User(UserId.newId(), externalIdentity, Instant.now());
         AccessToken accessToken = new AccessToken("access-123");
 
         String idToken = "token-123";

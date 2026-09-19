@@ -10,6 +10,7 @@ import io.github.tony8864.login.domain.ExternalIdentity;
 import io.github.tony8864.login.domain.User;
 import io.github.tony8864.login.domain.UserId;
 
+import java.time.Instant;
 import java.util.Optional;
 
 public class LoginService {
@@ -36,7 +37,7 @@ public class LoginService {
         if (userOptional.isPresent()) {
             user = userOptional.get();
         } else {
-            user = new User(UserId.newId(), identity);
+            user = new User(UserId.newId(), identity, Instant.now());
             userRepository.save(user);
         }
 
