@@ -7,3 +7,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
+
+auth:
+  jwt:
+    issuer: audio-playback-api
+    audience: audio-playback-api
+    access-token-lifetime: 15m

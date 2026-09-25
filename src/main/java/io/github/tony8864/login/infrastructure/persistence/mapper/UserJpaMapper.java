@@ -1,10 +1,10 @@
-package io.github.tony8864.login.infrastructure.mapper;
+package io.github.tony8864.login.infrastructure.persistence.mapper;
 
 import io.github.tony8864.login.domain.ExternalIdentity;
 import io.github.tony8864.login.domain.ProviderUserId;
 import io.github.tony8864.login.domain.User;
 import io.github.tony8864.login.domain.UserId;
-import io.github.tony8864.login.infrastructure.entity.UserJpaEntity;
+import io.github.tony8864.login.infrastructure.persistence.entity.UserJpaEntity;
 
 public final class UserJpaMapper {
 

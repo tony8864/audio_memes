@@ -1,4 +1,4 @@
-package io.github.tony8864.login.infrastructure.entity;
+package io.github.tony8864.login.infrastructure.persistence.entity;
 
 import io.github.tony8864.login.domain.AuthProvider;
 import jakarta.persistence.Entity;

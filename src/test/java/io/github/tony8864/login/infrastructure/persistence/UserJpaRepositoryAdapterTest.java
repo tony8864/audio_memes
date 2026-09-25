@@ -1,4 +1,4 @@
-package io.github.tony8864.login.infrastructure;
+package io.github.tony8864.login.infrastructure.persistence;
 
 import io.github.tony8864.login.application.port.UserRepository;
 import io.github.tony8864.login.domain.*;
