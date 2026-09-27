@@ -1,6 +1,10 @@
 package io.github.tony8864.login.web;
 
 import io.github.tony8864.login.application.LoginService;
+import io.github.tony8864.login.application.exception.IdentityVerificationException;
+import io.github.tony8864.login.application.exception.IdentityVerificationUnavailableException;
+import io.github.tony8864.login.application.exception.InvalidIdentityTokenException;
+import io.github.tony8864.login.application.exception.TokenIssuingException;
 import io.github.tony8864.login.application.model.AccessToken;
 import io.github.tony8864.login.application.model.LoginCommand;
 import io.github.tony8864.login.application.model.LoginResult;
@@ -54,5 +58,69 @@ class LoginControllerTest {
                 "google-id-token",
                 captor.getValue().idToken()
         );
+    }
+
+    @Test
+    void login_invalidIdentityToken_returnsUnauthorized() throws Exception {
+        when(service.login(any(LoginCommand.class))).
+                thenThrow(new InvalidIdentityTokenException("Invalid identity token"));
+
+        mockMvc.perform(
+                post("/api/v1/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "idToken": "invalid-token"
+                                }
+                                """)
+                ).andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void login_identityVerificationFails_returnsServiceUnavailable() throws Exception {
+        when(service.login(any(LoginCommand.class)))
+                .thenThrow(new IdentityVerificationUnavailableException("Failed to verify token"));
+
+        mockMvc.perform(
+                post("/api/v1/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "idToken": "id-token"
+                                }
+                                """)
+        ).andExpect(status().isServiceUnavailable());
+    }
+
+    @Test
+    void login_identityVerificationFails_returnsServerInternalError() throws Exception {
+        when(service.login(any(LoginCommand.class)))
+                .thenThrow(new IdentityVerificationException("Failed to verify token"));
+
+        mockMvc.perform(
+                post("/api/v1/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "idToken": "id-token"
+                                }
+                                """)
+        ).andExpect(status().isInternalServerError());
+    }
+
+    @Test
+    void login_tokenIssuingFails_returnsInternalServerError() throws Exception {
+        when(service.login(any(LoginCommand.class)))
+                .thenThrow(new TokenIssuingException("Failed to issue token"));
+
+        mockMvc.perform(
+                post("/api/v1/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "idToken": "id-token"
+                                }
+                                """)
+                ).andExpect(status().isInternalServerError());
     }
 }

@@ -3,6 +3,8 @@ package io.github.tony8864.login.infrastructure.verifier.google;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import io.github.tony8864.login.application.exception.IdentityVerificationException;
+import io.github.tony8864.login.application.exception.IdentityVerificationUnavailableException;
+import io.github.tony8864.login.application.exception.InvalidIdentityTokenException;
 import io.github.tony8864.login.application.port.IdentityVerifier;
 import io.github.tony8864.login.domain.AuthProvider;
 import io.github.tony8864.login.domain.ExternalIdentity;
@@ -25,7 +27,7 @@ public class GoogleIdentityVerifier implements IdentityVerifier {
         GoogleIdToken googleIdToken = verifyToken(idToken);
 
         if (googleIdToken == null) {
-            throw new IdentityVerificationException("Invalid Google Id token");
+            throw new InvalidIdentityTokenException("Invalid Google Id token");
         }
 
         String subject = googleIdToken.getPayload().getSubject();
@@ -39,8 +41,16 @@ public class GoogleIdentityVerifier implements IdentityVerifier {
     private GoogleIdToken verifyToken(String idToken) {
         try {
             return verifier.verify(idToken);
-        } catch (IOException | GeneralSecurityException e) {
-            throw new IdentityVerificationException("Failed to verify Google ID token", e);
+        } catch (IOException e) {
+            throw new IdentityVerificationUnavailableException(
+                    "Google identity verification is temporarily unavailable",
+                    e
+            );
+        } catch (GeneralSecurityException e) {
+            throw new IdentityVerificationException(
+                    "Failed to securely verify Google ID token",
+                    e
+            );
         }
     }
 }

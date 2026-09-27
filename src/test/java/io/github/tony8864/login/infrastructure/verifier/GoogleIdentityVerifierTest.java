@@ -3,6 +3,8 @@ package io.github.tony8864.login.infrastructure.verifier;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import io.github.tony8864.login.application.exception.IdentityVerificationException;
+import io.github.tony8864.login.application.exception.IdentityVerificationUnavailableException;
+import io.github.tony8864.login.application.exception.InvalidIdentityTokenException;
 import io.github.tony8864.login.domain.AuthProvider;
 import io.github.tony8864.login.domain.ExternalIdentity;
 import io.github.tony8864.login.infrastructure.verifier.google.GoogleIdentityVerifier;
@@ -58,8 +60,8 @@ class GoogleIdentityVerifierTest {
         when(googleIdTokenVerifier.verify("idToken")).thenReturn(null);
 
         // act
-        IdentityVerificationException ex = assertThrows(
-                IdentityVerificationException.class,
+        InvalidIdentityTokenException ex = assertThrows(
+                InvalidIdentityTokenException.class,
                 () -> verifier.verify("idToken")
         );
 
@@ -68,19 +70,19 @@ class GoogleIdentityVerifierTest {
     }
 
     @Test
-    void verify_ioException_throwsIdentityVerificationException() throws GeneralSecurityException, IOException {
+    void verify_ioException_throwsIdentityVerificationUnavailableException() throws GeneralSecurityException, IOException {
         // arrange
         IOException ioException = new IOException();
         when(googleIdTokenVerifier.verify("idToken")).thenThrow(ioException);
 
         // act
-        IdentityVerificationException ex = assertThrows(
-                IdentityVerificationException.class,
+        IdentityVerificationUnavailableException ex = assertThrows(
+                IdentityVerificationUnavailableException.class,
                 () -> verifier.verify("idToken")
         );
 
         // assert
-        assertEquals("Failed to verify Google ID token", ex.getMessage());
+        assertEquals("Google identity verification is temporarily unavailable", ex.getMessage());
         assertEquals(ioException, ex.getCause());
     }
 
@@ -97,7 +99,7 @@ class GoogleIdentityVerifierTest {
         );
 
         // assert
-        assertEquals("Failed to verify Google ID token", ex.getMessage());
+        assertEquals("Failed to securely verify Google ID token", ex.getMessage());
         assertEquals(generalSecurityException, ex.getCause());
     }
 }
