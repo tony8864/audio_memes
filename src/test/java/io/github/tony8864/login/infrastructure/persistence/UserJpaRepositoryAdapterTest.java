@@ -4,7 +4,9 @@ import io.github.tony8864.login.application.port.UserRepository;
 import io.github.tony8864.login.domain.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.boot.flyway.autoconfigure.FlywayAutoConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Import;
 import org.testcontainers.junit.jupiter.Container;
@@ -17,9 +19,10 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DataJpaTest(properties = "spring.jpa.hibernate.ddl-auto=create-drop")
+@DataJpaTest(properties = "spring.jpa.hibernate.ddl-auto=validate")
 @Testcontainers
 @Import(UserJpaRepositoryAdapter.class)
+@ImportAutoConfiguration(FlywayAutoConfiguration.class)
 class UserJpaRepositoryAdapterTest {
 
     @Container
