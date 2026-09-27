@@ -1,8 +1,8 @@
-package io.github.tony8864.login.infrastructure.jwt;
+package io.github.tony8864.login.infrastructure.jwt.pem;
 
 public enum PemKeyType {
-    PUBLIC_KEY("public_key"),
-    PRIVATE_KEY("private_key");
+    PUBLIC_KEY("public"),
+    PRIVATE_KEY("private");
 
     private final String keyIdentifier;
 

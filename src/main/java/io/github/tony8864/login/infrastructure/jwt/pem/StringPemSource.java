@@ -1,4 +1,4 @@
-package io.github.tony8864.login.infrastructure.jwt;
+package io.github.tony8864.login.infrastructure.jwt.pem;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

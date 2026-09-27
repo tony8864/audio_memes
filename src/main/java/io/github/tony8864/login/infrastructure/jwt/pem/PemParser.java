@@ -1,4 +1,4 @@
-package io.github.tony8864.login.infrastructure.jwt;
+package io.github.tony8864.login.infrastructure.jwt.pem;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -20,7 +20,7 @@ public class PemParser {
     private final static String PRIVATE_HEADER = "-----BEGIN PRIVATE KEY-----";
     private final static String PRIVATE_FOOTER = "-----END PRIVATE KEY-----";
 
-    static RSAPublicKey parsePublicKey(PemSource pemSource) throws Exception {
+    public static RSAPublicKey parsePublicKey(PemSource pemSource) throws Exception {
         try (InputStream in = pemSource.getInputStream();
              BufferedReader reader =
                      new BufferedReader(
@@ -46,7 +46,7 @@ public class PemParser {
         }
     }
 
-    static RSAPrivateKey parsePrivateKey(PemSource pemSource) throws Exception {
+    public static RSAPrivateKey parsePrivateKey(PemSource pemSource) throws Exception {
         try (InputStream in = pemSource.getInputStream(); BufferedReader reader =
                 new BufferedReader(
                         new InputStreamReader(in, StandardCharsets.UTF_8))

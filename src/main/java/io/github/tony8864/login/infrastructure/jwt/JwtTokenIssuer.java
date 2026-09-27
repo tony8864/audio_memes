@@ -27,7 +27,7 @@ public class JwtTokenIssuer implements TokenIssuer {
     }
 
     @Override
-    public AccessToken issueFor(User user) throws TokenIssuingException {
+    public AccessToken issueFor(User user) {
 
         Instant issuedAt = clock.instant();
         Instant expiresAt = issuedAt.plus(properties.accessTokenLifetime());
