@@ -1,4 +1,4 @@
-package io.github.tony8864.login.infrastructure.jwt;
+package io.github.tony8864.security.jwt;
 
 import com.nimbusds.jose.JOSEObjectType;
 import com.nimbusds.jose.JWSAlgorithm;
@@ -9,9 +9,11 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import io.github.tony8864.login.application.model.AccessToken;
 import io.github.tony8864.login.domain.*;
-import io.github.tony8864.login.infrastructure.jwt.pem.PemParser;
-import io.github.tony8864.login.infrastructure.jwt.pem.PemSource;
-import io.github.tony8864.login.infrastructure.jwt.pem.StringPemSource;
+import io.github.tony8864.security.jwt.JwtProperties;
+import io.github.tony8864.security.jwt.JwtTokenIssuer;
+import io.github.tony8864.security.jwt.pem.PemParser;
+import io.github.tony8864.security.jwt.pem.PemSource;
+import io.github.tony8864.security.jwt.pem.StringPemSource;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

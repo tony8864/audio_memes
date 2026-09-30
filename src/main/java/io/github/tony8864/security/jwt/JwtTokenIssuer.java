@@ -1,4 +1,4 @@
-package io.github.tony8864.login.infrastructure.jwt;
+package io.github.tony8864.security.jwt;
 
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.RSASSASigner;

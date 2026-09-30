@@ -9,6 +9,7 @@ import io.github.tony8864.login.application.model.AccessToken;
 import io.github.tony8864.login.application.model.LoginCommand;
 import io.github.tony8864.login.application.model.LoginResult;
 import org.mockito.ArgumentCaptor;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @WebMvcTest(LoginController.class)
+@AutoConfigureMockMvc(addFilters = false)
 class LoginControllerTest {
 
     @Autowired

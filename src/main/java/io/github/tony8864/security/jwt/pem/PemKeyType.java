@@ -1,4 +1,4 @@
-package io.github.tony8864.login.infrastructure.jwt.pem;
+package io.github.tony8864.security.jwt.pem;
 
 public enum PemKeyType {
     PUBLIC_KEY("public"),
