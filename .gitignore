@@ -5,6 +5,8 @@ target/
 
 .env
 /secrets
+/docs
+AGENTS.md
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
